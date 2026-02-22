@@ -48,9 +48,43 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+  /* 1. ELEGÁNS SZÖVEGKIJELÖLÉS (Brand Blue) */
+  ::selection {
+    @apply bg-brand-blue/30 text-current;
+  }
+  ::-moz-selection {
+    @apply bg-brand-blue/30 text-current;
+  }
 
-  body {
-    @apply bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text antialiased;
+  /* 2. GLOBÁLIS FINOM GÖRGETÉS ÉS MOBIL FIXEK */
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent; 
+  }
+
+  /* 3. PRÉMIUM VÉKONY GÖRGETŐSÁV (Mac OS stílus) */
+  ::-webkit-scrollbar {
+    width: 6px; 
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-border/50 dark:bg-white/10 rounded-full transition-colors;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-blue/60 dark:bg-brand-blue/80;
+  }
+
+ body {
+    @apply bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text antialiased selection:bg-brand-blue/30;
+  }
+    h1, h2, h3, h4, h5, h6 {
+    @apply text-gray-900 dark:text-white;
   }
 }
 
@@ -65,5 +99,9 @@
   
   .shadow-glow-custom {
     box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+  }
+  
+  .text-gradient-brand {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-blueLight to-brand-blue;
   }
 }

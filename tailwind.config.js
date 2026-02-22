@@ -5,42 +5,43 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        // Light Mode
+        brand: {
+          blue: '#02338d', // A Hivatalos MIK Kék
+          blueLight: '#0d47a1', // Egy picivel világosabb kék
+          blueDark: '#011c52',
+        },
         light: {
-          bg: '#FFFFFF',
-          panel: '#FFFFFF',
-          text: '#0F172A',
+          bg: '#F8F9FA',
+          panel: '#FAFAFA',
+          text: '#18181B',
         },
-        // Dark Mode
         dark: {
-          bg: '#020617',
-          panel: '#0F172A',
-          border: '#1E293B',
-          text: '#F8FAFC',
+          bg: '#09090B',
+          panel: '#121214',
+          border: '#27272A',
+          text: '#FAFAFA',
         },
-        // Aurora
-        'aurora-cyan': '#06b6d4',
-        'aurora-blue': '#3b82f6',
-        // Card (Shadcn kompatibilis)
-        card: {
-          DEFAULT: '#FFFFFF',
-          foreground: '#0F172A',
-        },
+        // Maradnak a szín-nevek, hogy ne törjön el a kód, de a tartalmuk elegáns kék lesz
+        'aurora-cyan': '#0d47a1', 
+        'aurora-blue': '#02338d', 
+        'aurora-purple': '#011c52', // A lila helyett éjkék
       },
       backgroundImage: {
-        'aurora-grad': 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
+        // ÚJ ELEGÁNS GRADIENS: Monokróm, professzionális kék átmenet
+        'aurora-grad': 'linear-gradient(135deg, #0d47a1 0%, #02338d 100%)',
       },
       boxShadow: {
-        soft: '0 8px 30px rgba(0,0,0,0.04)',
-        glow: '0 0 20px rgba(6, 182, 212, 0.3)',
+        soft: '0 8px 30px rgba(0,0,0,0.03)',
+        // Finom sötétkék ragyogás
+        glow: '0 0 20px rgba(2, 51, 141, 0.25)', 
       },
       borderRadius: {
-        main: '2.5rem',
-        xl: '1.5rem',
+        main: '2rem',
       },
       animation: {
         aurora: 'aurora 25s ease-in-out infinite',

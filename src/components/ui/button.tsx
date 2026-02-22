@@ -5,20 +5,27 @@ import { motion, type HTMLMotionProps } from 'framer-motion'
 import { cn } from '@/lib/design-system'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center font-medium transition-all focus:outline-none focus:ring-4 focus:ring-[var(--color-aurora-cyan)]/20 disabled:opacity-50 disabled:pointer-events-none',
+  'inline-flex items-center justify-center font-bold tracking-wide transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-blue/50 disabled:opacity-50 disabled:pointer-events-none',
   {
     variants: {
       variant: {
-        default: 'bg-[var(--background-aurora-grad)] text-white shadow-glow hover:shadow-glow',
-        ghost: 'border border-[var(--color-dark-border)]/50 bg-transparent hover:bg-[var(--color-light-bg)] dark:hover:bg-[var(--color-dark-panel)]',
-        destructive: 'bg-red-500 hover:bg-red-600 text-white shadow-glow',
-        outline: 'border-2 border-[var(--background-aurora-grad)] text-[var(--color-aurora-cyan)] bg-transparent hover:bg-[var(--background-aurora-grad)] hover:text-white shadow-glow',
+        // ELEGÁNS DEFAULT: Áttetsző Brand Blue háttér, vékony szegéllyel, finom kék fénnyel hoverkor
+        default: 'bg-brand-blue/10 dark:bg-brand-blue/20 text-brand-blue dark:text-blue-300 border border-brand-blue/20 hover:bg-brand-blue hover:text-white hover:shadow-glow hover:border-brand-blue',
+        
+        // GHOST: Láthatatlan, amíg rá nem mész
+        ghost: 'bg-transparent hover:bg-black/5 dark:hover:bg-white/10 text-light-text dark:text-dark-text',
+        
+        // DESTRUCTIVE: Finomított piros (nem bántja a szemet)
+        destructive: 'bg-rose-500/10 text-rose-600 border border-rose-500/20 hover:bg-rose-500 hover:text-white hover:shadow-[0_0_20px_rgba(225,29,72,0.3)]',
+        
+        // OUTLINE: Vékony, letisztult szegély
+        outline: 'border border-dark-border/20 dark:border-white/10 text-light-text dark:text-dark-text bg-transparent hover:border-brand-blue hover:text-brand-blue hover:bg-brand-blue/5',
       },
       size: {
         default: 'h-12 px-6 py-3 rounded-xl',
-        sm: 'h-10 px-4 rounded-lg',
-        lg: 'h-14 px-8 py-6 rounded-xl text-xl',
-        xl: 'h-20 px-12 py-8 rounded-3xl text-2xl font-bold',
+        sm: 'h-10 px-4 rounded-lg text-sm',
+        lg: 'h-14 px-8 py-4 rounded-xl text-lg',
+        xl: 'h-16 px-10 py-5 rounded-2xl text-xl',
       },
     },
     defaultVariants: {
@@ -37,8 +44,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     <motion.button
       ref={ref}
       className={cn(buttonVariants({ variant, size, className }))}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      // Klasszikus, gyors kattintás visszajelzés
+      whileTap={{ scale: 0.96 }}
       {...props}
     >
       {children}
