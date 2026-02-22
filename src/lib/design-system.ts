@@ -1,15 +1,14 @@
-// Clean Aurora v2 - Tailwind v4 CSS vars
-export const colors = {
-  light: { background: 'var(--color-light-bg)', panel: 'var(--color-light-panel)', text: 'var(--color-light-text)' },
-  dark: { background: 'var(--color-dark-bg)', panel: 'var(--color-dark-panel)', border: 'var(--color-dark-border)', text: 'var(--color-dark-text)' },
-  aurora: { cyan: 'var(--color-aurora-cyan)', blue: 'var(--color-aurora-blue)', gradient: 'var(--background-aurora-grad)' },
-} as const;
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
-export const shadows = { soft: 'var(--shadow-soft)', glow: 'var(--shadow-glow)' } as const;
-export const radii = { main: 'var(--radius-main)', xl: 'var(--radius-xl)' } as const;
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
 
-export const cn = (...inputs: (string | null | undefined)[]) => inputs.filter(Boolean).join(' ');
-
+// v3 classNames közvetlen
 export const buttonVariants = {
-  default: 'aurora-grad text-white shadow-glow hover:shadow-glow rounded-xl px-6 py-3 font-medium transition-all',
-};
+  default: 'bg-aurora-grad text-white shadow-glow hover:shadow-glow rounded-xl px-6 py-3 font-medium transition-all',
+  ghost: 'border border-dark-border/50 bg-transparent hover:bg-light-panel dark:hover:bg-dark-panel rounded-xl px-6 py-3 font-medium transition-all',
+  destructive: 'bg-red-500 hover:bg-red-600 text-white shadow-glow rounded-xl px-6 py-3 font-medium transition-all',
+  outline: 'border-2 border-aurora-cyan text-aurora-cyan bg-transparent hover:bg-aurora-grad hover:text-white shadow-glow rounded-xl px-6 py-3 font-medium transition-all',
+} as const
