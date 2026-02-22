@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css' // Győződj meg róla, hogy ez a te globals.css fájlod helyes útvonala
+import { ThemeProvider } from 'next-themes'
+import { Toaster } from 'sonner'
+import DevAdminToggle from '@/components/DevAdminToggle'
+import Navbar from '@/components/Navbar'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,31 +19,38 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    // A lang="hu" fontos a keresőoptimalizálás (SEO) és a képernyőolvasók miatt.
-    // Nincs benne 'dark' class, így az oldal alapértelmezetten a gyönyörű, tiszta világos témát kapja.
-    <html lang="hu">
-      <body className={`${inter.className} relative min-h-screen flex flex-col bg-light-bg text-light-text selection:bg-brand-blue/30`}>
+    <html lang="hu" suppressHydrationWarning>
+      <body className={`${inter.className} relative min-h-screen flex flex-col bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text selection:bg-brand-blue/30 transition-colors duration-300`}>
         
-        {/* --- SSOT GLOBÁLIS STÚDIÓFÉNYEK --- */}
-        {/* Felső, hatalmas elmosódott kék fény a háttérben */}
-        <div className="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[400px] bg-brand-blue/10 blur-[100px] sm:blur-[120px] rounded-full pointer-events-none -z-50" />
-        
-        {/* Alsó, hatalmas elmosódott kék fény a háttérben */}
-        <div className="fixed bottom-[-10%] left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[400px] bg-brand-blue/10 blur-[100px] sm:blur-[120px] rounded-full pointer-events-none -z-50" />
+        {/* LINTER ÉS DESIGN JAVÍTÁS: 
+            Kikényszerített világos mód (light) alapértelmezettként az SSOT szerint!
+            Az enableSystem={false} kikapcsolja a gép saját (pl. Windows) sötét módjának figyelését. */}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          
+          {/* Globális Stúdiófények (SSOT) */}
+          <div className="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[400px] bg-brand-blue/10 blur-[100px] sm:blur-[120px] rounded-full pointer-events-none -z-50" />
+          <div className="fixed bottom-[-10%] left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[400px] bg-brand-blue/10 blur-[100px] sm:blur-[120px] rounded-full pointer-events-none -z-50" />
 
-        {/* --- FEJLÉC (Navbar) HELYE --- */}
-        {/* Ide fogjuk behúzni a Navbar komponenst később, pl: <Navbar /> */}
+          {/* Navigáció */}
+          <Navbar />
 
-        {/* --- SSOT OLDAL TARTALOM (Wrapper) --- */}
-        {/* Ez az a doboz, ami garantálja, hogy minden aloldal (page.tsx) tökéletesen középre legyen 
-            zárva, és megkapja a szükséges margókat (padding) mobilon és asztali gépen is. */}
-        <main className="flex-grow w-full max-w-[1400px] mx-auto pt-24 pb-12 px-4 sm:px-6 lg:px-8 z-10 flex flex-col">
-          {children}
-        </main>
+          {/* Tartalom Wrapper */}
+          <main className="flex-grow w-full max-w-[1400px] mx-auto pt-28 pb-12 px-4 sm:px-6 lg:px-8 z-10 flex flex-col">
+            {children}
+          </main>
 
-        {/* --- LÁBLÉC (Footer) HELYE --- */}
-        {/* Ide fogjuk behúzni a Footer komponenst később, pl: <Footer /> */}
+          {/* Értesítések */}
+          <Toaster 
+            position="top-center" 
+            toastOptions={{
+              className: 'dark:bg-dark-panel dark:text-white dark:border-dark-border/50 bg-white text-gray-900 border-gray-200 shadow-xl rounded-xl font-medium',
+            }}
+          />
 
+          {/* Teszt Admin Gomb */}
+          <DevAdminToggle />
+
+        </ThemeProvider>
       </body>
     </html>
   )
